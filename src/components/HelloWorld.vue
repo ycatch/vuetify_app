@@ -20,8 +20,8 @@
         </p>
 
         <div class="form-group">
-            <label for="form_title">メッセージ ：</label>
-            <ValidationProvider rules="positive" v-slot="{ errors }">
+            <label for="form_title">Input: </label>
+            <ValidationProvider rules="max:5" v-slot="{ errors }">
                 <input 
                     v-model="greeting"
                     type="text"
@@ -29,7 +29,7 @@
                 >
                 <span> {{ errors[0] }}</span>
             </ValidationProvider>
-            <p class="name">Message : {{ greeting }}</p>
+            <p class="name">Output: {{ greeting }}</p>
         </div>
       </v-col>
 
@@ -41,8 +41,11 @@
   import { ValidationProvider } from "vee-validate";
   import { extend } from 'vee-validate';
 
-  extend('positive', greeting => {
-    return greeting >= 0;
+  extend('max', {
+    validate(greeting, args) {
+        return greeting.length <= args.length;
+    },
+    params: ['length']
   });
 
   export default {
