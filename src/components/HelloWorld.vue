@@ -16,10 +16,21 @@
         </h1>
 
         <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
+          For help and collaboration with other Vuetify developers
         </p>
-        <p class="name">Message: {{ nickname }}</p>
-        <input class="input" v-model="nickname" placeholder="Message">
+
+        <div class="form-group">
+            <label for="form_title">メッセージ ：</label>
+            <ValidationProvider rules="positive" v-slot="{ errors }">
+                <input 
+                    v-model="greeting"
+                    type="text"
+                    placeholder="Your Message is here !!"
+                >
+                <span> {{ errors[0] }}</span>
+            </ValidationProvider>
+            <p class="name">Message : {{ greeting }}</p>
+        </div>
       </v-col>
 
     </v-row>
@@ -27,12 +38,22 @@
 </template>
 
 <script>
-  export default {
-    name: 'nickname',
+  import { ValidationProvider } from "vee-validate";
+  import { extend } from 'vee-validate';
 
+  extend('positive', greeting => {
+    return greeting >= 0;
+  });
+
+  export default {
+    components: {
+        ValidationProvider
+    },
+
+    name: 'greeting',
     data () {
         return {
-            nickname: ''
+            greeting: ''
         }
     }
   }
