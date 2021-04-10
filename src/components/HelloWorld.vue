@@ -40,12 +40,11 @@
 <script>
   import { ValidationProvider } from "vee-validate";
   import { extend } from 'vee-validate';
+  import { max } from 'vee-validate/dist/rules';
 
   extend('max', {
-    validate(greeting, args) {
-        return greeting.length <= args.length;
-    },
-    params: ['length']
+    ...max,
+    message: 'Exceeds maximum length'
   });
 
   export default {
