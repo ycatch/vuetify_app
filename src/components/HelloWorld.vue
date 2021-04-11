@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="text-center">
+    <v-row class="text-left">
       <v-col cols="12">
         <v-img
           :src="require('../assets/logo.svg')"
@@ -19,18 +19,17 @@
           For help and collaboration with other Vuetify developers
         </p>
 
-        <div class="form-group">
-            <label for="form_title">Input: </label>
-            <ValidationProvider rules="max:5" v-slot="{ errors }">
-                <input 
+        <form>
+            <ValidationProvider v-slot="{ errors }" rules="max:3">
+                <v-text-field
                     v-model="greeting"
-                    type="text"
-                    placeholder="Your Message is here !!"
-                >
-                <span> {{ errors[0] }}</span>
+                    :error-messages="errors"
+                    label="Input"
+                    :success="valid"
+                ></v-text-field>
             </ValidationProvider>
-            <p class="name">Output: {{ greeting }}</p>
-        </div>
+            <p>Output: {{ greeting }}</p>
+        </form>
       </v-col>
 
     </v-row>
@@ -38,14 +37,12 @@
 </template>
 
 <script>
-  import { ValidationProvider } from "vee-validate";
-  import { extend } from 'vee-validate';
+  import { ValidationProvider, extend, localize } from "vee-validate";
   import { max } from 'vee-validate/dist/rules';
+  import ja from 'vee-validate/dist/locale/ja';
 
-  extend('max', {
-    ...max,
-    message: 'Exceeds maximum length'
-  });
+  extend('max', max);
+  localize('ja', ja)
 
   export default {
     components: {
