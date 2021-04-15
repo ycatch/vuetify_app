@@ -44,5 +44,10 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "Practice of Vue.js + Vuetify ",
+  "main": "index.js",
+  "repository": "https://github.com/ycatch/vuetify_app.git",
+  "author": "Yutaka Catch <961566+ycatch@users.noreply.github.com>",
+  "license": "MIT"
 }
